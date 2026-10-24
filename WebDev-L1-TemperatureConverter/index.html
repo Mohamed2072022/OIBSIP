@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="A responsive temperature converter for Celsius, Fahrenheit, and Kelvin.">
+  <title>Tempora | Temperature Converter</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Tempora home">
+      <span class="brand-icon">°</span>
+      TEMPORA<span class="brand-dot">.</span>
+    </a>
+    <span class="header-label">TEMPERATURE TOOLS</span>
+  </header>
+
+  <main class="main-content">
+    <section class="converter-card" aria-labelledby="page-title">
+      <div class="card-top">
+        <span class="eyebrow">SIMPLE · FAST · ACCURATE</span>
+        <span class="thermometer-icon" aria-hidden="true">🌡</span>
+      </div>
+
+      <h1 id="page-title">Temperature <span>Converter</span></h1>
+      <p class="intro">
+        Convert temperatures between Celsius, Fahrenheit, and Kelvin in seconds.
+      </p>
+
+      <form id="converterForm">
+        <label for="temperature">Temperature value</label>
+        <input
+          id="temperature"
+          name="temperature"
+          type="number"
+          step="any"
+          placeholder="e.g. 25"
+          inputmode="decimal"
+          required
+        >
+
+        <div class="unit-grid">
+          <div class="field-group">
+            <label for="fromUnit">From</label>
+            <select id="fromUnit" name="fromUnit">
+              <option value="C">Celsius (°C)</option>
+              <option value="F">Fahrenheit (°F)</option>
+              <option value="K">Kelvin (K)</option>
+            </select>
+          </div>
+
+          <button
+            type="button"
+            id="swapUnits"
+            class="swap-button"
+            aria-label="Swap temperature units"
+            title="Swap units"
+          >⇄</button>
+
+          <div class="field-group">
+            <label for="toUnit">To</label>
+            <select id="toUnit" name="toUnit">
+              <option value="F">Fahrenheit (°F)</option>
+              <option value="C">Celsius (°C)</option>
+              <option value="K">Kelvin (K)</option>
+            </select>
+          </div>
+        </div>
+
+        <p id="errorMessage" class="error-message" role="alert" aria-live="polite"></p>
+
+        <button type="submit" class="convert-button">
+          Convert Temperature <span aria-hidden="true">→</span>
+        </button>
+
+        <button type="button" id="resetButton" class="reset-button">
+          Clear and reset
+        </button>
+      </form>
+
+      <section id="resultPanel" class="result-panel" aria-live="polite" hidden>
+        <span class="result-label">CONVERTED TEMPERATURE</span>
+        <p id="resultValue" class="result-value">--</p>
+        <p id="resultDescription" class="result-description"></p>
+      </section>
+
+      <div class="quick-reference">
+        <p class="reference-heading">QUICK REFERENCE</p>
+        <div class="reference-row">
+          <span>Water freezes</span>
+          <strong>0°C / 32°F</strong>
+        </div>
+        <div class="reference-row">
+          <span>Room temperature</span>
+          <strong>20–25°C</strong>
+        </div>
+        <div class="reference-row">
+          <span>Water boils (at sea level)</span>
+          <strong>100°C / 212°F</strong>
+        </div>
+      </div>
+    </section>
+
+    <p class="page-note">Built with HTML, CSS & JavaScript</p>
+  </main>
+
+  <footer class="site-footer">
+    <span> TEMPORA. </span>
+    <span>Temperature conversion made simple.</span>
+  </footer>
+</body>
+</html>
