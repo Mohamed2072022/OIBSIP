@@ -6,27 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#101827">
   <meta name="description" content="A responsive temperature converter for Celsius, Fahrenheit, and Kelvin.">
+
   <title>Tempora | Temperature Converter</title>
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
 
+  <!-- Header -->
   <header class="site-header">
+
     <a class="brand" href="#" aria-label="Tempora home">
       <span class="brand-icon">°</span>
       TEMPORA<span class="brand-dot">.</span>
     </a>
+
     <span class="header-label">TEMPERATURE TOOLS</span>
+
   </header>
 
+
+  <!-- Main Content -->
   <main class="main-content">
+
     <section class="converter-card" aria-labelledby="page-title">
 
       <div class="card-top">
         <span class="eyebrow">SIMPLE · FAST · ACCURATE</span>
         <span class="thermometer-icon" aria-hidden="true">🌡</span>
       </div>
+
 
       <h1 id="page-title">
         Temperature <span>Converter</span>
@@ -36,6 +47,8 @@
         Convert temperatures between Celsius, Fahrenheit, and Kelvin in seconds.
       </p>
 
+
+      <!-- Converter Form -->
       <form id="converterForm">
 
         <label for="temperature">Temperature value</label>
@@ -50,18 +63,28 @@
           required
         >
 
+
+        <!-- Input Unit -->
         <div class="unit-grid">
+
           <div class="field-group">
+
             <label for="fromUnit">Input Unit</label>
 
             <select id="fromUnit" name="fromUnit">
+
               <option value="C">Celsius (°C)</option>
               <option value="F">Fahrenheit (°F)</option>
               <option value="K">Kelvin (K)</option>
+
             </select>
+
           </div>
+
         </div>
 
+
+        <!-- Error Message -->
         <p
           id="errorMessage"
           class="error-message"
@@ -69,10 +92,15 @@
           aria-live="polite"
         ></p>
 
+
+        <!-- Convert Button -->
         <button type="submit" class="convert-button">
-          Convert Temperature <span aria-hidden="true">→</span>
+          Convert Temperature
+          <span aria-hidden="true">→</span>
         </button>
 
+
+        <!-- Reset Button -->
         <button
           type="button"
           id="resetButton"
@@ -83,6 +111,8 @@
 
       </form>
 
+
+      <!-- Conversion Results -->
       <section
         id="resultPanel"
         class="result-panel"
@@ -94,20 +124,55 @@
           CONVERTED TEMPERATURES
         </span>
 
-        <div class="result-row">
-          <span>Celsius</span>
-          <strong id="celsiusResult">-- °C</strong>
+
+        <div class="result-grid">
+
+          <!-- Celsius -->
+          <div class="result-item">
+
+            <span>Celsius</span>
+
+            <strong
+              id="celsiusResult"
+              class="result-value"
+            >
+              -- °C
+            </strong>
+
+          </div>
+
+
+          <!-- Fahrenheit -->
+          <div class="result-item">
+
+            <span>Fahrenheit</span>
+
+            <strong
+              id="fahrenheitResult"
+              class="result-value"
+            >
+              -- °F
+            </strong>
+
+          </div>
+
+
+          <!-- Kelvin -->
+          <div class="result-item">
+
+            <span>Kelvin</span>
+
+            <strong
+              id="kelvinResult"
+              class="result-value"
+            >
+              -- K
+            </strong>
+
+          </div>
+
         </div>
 
-        <div class="result-row">
-          <span>Fahrenheit</span>
-          <strong id="fahrenheitResult">-- °F</strong>
-        </div>
-
-        <div class="result-row">
-          <span>Kelvin</span>
-          <strong id="kelvinResult">-- K</strong>
-        </div>
 
         <p
           id="resultDescription"
@@ -116,28 +181,45 @@
 
       </section>
 
+
+      <!-- Quick Reference -->
       <div class="quick-reference">
 
-        <p class="reference-heading">QUICK REFERENCE</p>
+        <p class="reference-heading">
+          QUICK REFERENCE
+        </p>
+
 
         <div class="reference-row">
+
           <span>Water freezes</span>
+
           <strong>0°C / 32°F</strong>
+
         </div>
 
+
         <div class="reference-row">
+
           <span>Room temperature</span>
+
           <strong>20–25°C</strong>
+
         </div>
 
+
         <div class="reference-row">
+
           <span>Water boils (at sea level)</span>
+
           <strong>100°C / 212°F</strong>
+
         </div>
 
       </div>
 
     </section>
+
 
     <p class="page-note">
       Built with HTML, CSS & JavaScript
@@ -145,9 +227,14 @@
 
   </main>
 
+
+  <!-- Footer -->
   <footer class="site-footer">
+
     <span>TEMPORA.</span>
+
     <span>Temperature conversion made simple.</span>
+
   </footer>
 
 </body>
