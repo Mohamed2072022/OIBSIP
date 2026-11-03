@@ -2,19 +2,15 @@
 const form = document.getElementById("converterForm");
 const temperatureInput = document.getElementById("temperature");
 const fromUnit = document.getElementById("fromUnit");
-const toUnit = document.getElementById("toUnit");
-const swapButton = document.getElementById("swapUnits");
 const resetButton = document.getElementById("resetButton");
+
 const errorMessage = document.getElementById("errorMessage");
 const resultPanel = document.getElementById("resultPanel");
-const resultValue = document.getElementById("resultValue");
-const resultDescription = document.getElementById("resultDescription");
 
-const unitNames = {
-  C: "Celsius",
-  F: "Fahrenheit",
-  K: "Kelvin"
-};
+const celsiusResult = document.getElementById("celsiusResult");
+const fahrenheitResult = document.getElementById("fahrenheitResult");
+const kelvinResult = document.getElementById("kelvinResult");
+const resultDescription = document.getElementById("resultDescription");
 
 const unitSymbols = {
   C: "°C",
@@ -22,7 +18,12 @@ const unitSymbols = {
   K: "K"
 };
 
-// Convert the input temperature to Celsius first.
+const minimumValues = {
+  C: -273.15,
+  F: -459.67,
+  K: 0
+};
+
 function toCelsius(value, unit) {
   switch (unit) {
     case "C":
@@ -31,20 +32,6 @@ function toCelsius(value, unit) {
       return (value - 32) * 5 / 9;
     case "K":
       return value - 273.15;
-    default:
-      throw new Error("Unsupported temperature unit.");
-  }
-}
-
-// Convert Celsius to the selected target unit.
-function fromCelsius(value, unit) {
-  switch (unit) {
-    case "C":
-      return value;
-    case "F":
-      return (value * 9 / 5) + 32;
-    case "K":
-      return value + 273.15;
     default:
       throw new Error("Unsupported temperature unit.");
   }
@@ -73,46 +60,37 @@ function convertTemperature() {
   const rawValue = temperatureInput.value.trim();
   const value = Number(rawValue);
   const sourceUnit = fromUnit.value;
-  const targetUnit = toUnit.value;
 
   if (rawValue === "" || !Number.isFinite(value)) {
     showError("Please enter a valid temperature value.");
     temperatureInput.focus();
-    return false;
+    return;
   }
-
-  // Reject temperatures below absolute zero.
-  const minimumValues = {
-    C: -273.15,
-    F: -459.67,
-    K: 0
-  };
 
   if (value < minimumValues[sourceUnit]) {
     showError(
       `Temperature cannot be below absolute zero (${minimumValues[sourceUnit]}${unitSymbols[sourceUnit]}).`
     );
     temperatureInput.focus();
-    return false;
+    return;
   }
 
-  const celsiusValue = toCelsius(value, sourceUnit);
-  let convertedValue = fromCelsius(celsiusValue, targetUnit);
+  // Convert the input to Celsius first.
+  const celsius = toCelsius(value, sourceUnit);
 
-  // Avoid tiny floating-point errors around zero.
-  if (Math.abs(convertedValue) < 0.0000001) {
-    convertedValue = 0;
-  }
+  // Calculate Fahrenheit and Kelvin.
+  const fahrenheit = (celsius * 9 / 5) + 32;
+  const kelvin = celsius + 273.15;
 
-  resultValue.textContent =
-    `${formatNumber(convertedValue)} ${unitSymbols[targetUnit]}`;
+  // Display all three results.
+  celsiusResult.textContent = `${formatNumber(celsius)} °C`;
+  fahrenheitResult.textContent = `${formatNumber(fahrenheit)} °F`;
+  kelvinResult.textContent = `${formatNumber(kelvin)} K`;
 
   resultDescription.textContent =
-    `${formatNumber(value)} ${unitSymbols[sourceUnit]} = ` +
-    `${formatNumber(convertedValue)} ${unitNames[targetUnit]}`;
+    `${formatNumber(value)} ${unitSymbols[sourceUnit]} converted to all temperature units.`;
 
   resultPanel.hidden = false;
-  return true;
 }
 
 form.addEventListener("submit", function (event) {
@@ -120,31 +98,19 @@ form.addEventListener("submit", function (event) {
   convertTemperature();
 });
 
-swapButton.addEventListener("click", function () {
-  const previousFrom = fromUnit.value;
-
-  fromUnit.value = toUnit.value;
-  toUnit.value = previousFrom;
-
-  clearError();
-
-  if (temperatureInput.value.trim() !== "") {
-    convertTemperature();
-  } else {
-    resultPanel.hidden = true;
-  }
-});
-
 resetButton.addEventListener("click", function () {
   form.reset();
 
-  // Restore the default conversion: Celsius to Fahrenheit.
   fromUnit.value = "C";
-  toUnit.value = "F";
 
   clearError();
+
   resultPanel.hidden = true;
-  resultValue.textContent = "--";
+
+  celsiusResult.textContent = "--";
+  fahrenheitResult.textContent = "--";
+  kelvinResult.textContent = "--";
   resultDescription.textContent = "";
+
   temperatureInput.focus();
 });
